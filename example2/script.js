@@ -5,7 +5,7 @@ import rhino3dm from 'https://cdn.jsdelivr.net/npm/rhino3dm@0.15.0-beta/rhino3dm
 import { RhinoCompute } from 'https://cdn.jsdelivr.net/npm/compute-rhino3d@0.13.0-beta/compute.rhino3d.module.js'
 
 // reference the definition
-const definitionName = 'rnd_vassel.gh'
+const definitionName = 'vassel.gh'
 
 // listen for slider change events
 const density_slider = document.getElementById( 'density' )
@@ -166,6 +166,9 @@ function saveByteArray ( fileName, byte ) {
 let scene, camera, renderer
 
 function init() {
+
+    // Rhino models are z-up, so set this as the default
+    THREE.Object3D.DefaultUp = new THREE.Vector3( 0, 0, 1 );
 
     // create a scene and a camera
     scene = new THREE.Scene()
