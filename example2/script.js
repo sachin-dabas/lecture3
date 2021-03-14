@@ -5,15 +5,15 @@ import rhino3dm from 'https://cdn.jsdelivr.net/npm/rhino3dm@0.15.0-beta/rhino3dm
 import { RhinoCompute } from 'https://cdn.jsdelivr.net/npm/compute-rhino3d@0.13.0-beta/compute.rhino3d.module.js'
 
 // reference the definition
-const definitionName = 'vassel.gh'
+const definitionName = 'rnd_vassel.gh'
 
 // listen for slider change events
 const density_slider = document.getElementById( 'density' )
-density_slider.addEventListener( 'input', onSliderChange, false )
+density_slider.addEventListener( 'mouseup', onSliderChange, false )
 const radius_slider = document.getElementById( 'radius' )
-radius_slider.addEventListener( 'input', onSliderChange, false )
+radius_slider.addEventListener( 'mouseup', onSliderChange, false )
 const rotate_slider = document.getElementById( 'rotate' )
-rotate_slider.addEventListener( 'input', onSliderChange, false )
+rotate_slider.addEventListener( 'mouseup', onSliderChange, false )
 
 const downloadButton = document.getElementById("downloadButton")
 downloadButton.onclick = download
@@ -51,22 +51,23 @@ async function compute() {
     // collect data
 
     // get slider values
-    let count = document.getElementById('count').valueAsNumber
+    let density = document.getElementById('density').valueAsNumber
     let radius = document.getElementById('radius').valueAsNumber
+    let rotate = document.getElementById('rotate').valueAsNumber
 
     // format data
     let param1 = new RhinoCompute.Grasshopper.DataTree('RH_IN:density')
     param1.append([0], [density])
-    let param2 = new RhinoCompute.Grasshopper.DataTree('RH_IN:count')
-    param2.append([0], [count])
+    let param2 = new RhinoCompute.Grasshopper.DataTree('RH_IN:radius')
+    param2.append([0], [radius])
     let param3 = new RhinoCompute.Grasshopper.DataTree('RH_IN:rotate')
-    param2.append([0], [rotate])
+    param3.append([0], [rotate])
 
     // Add all params to an array
     let trees = []
     trees.push(param1)
     trees.push(param2)
-    trees.push(rotate)
+    trees.push(param3)
 
     // Call RhinoCompute
 
@@ -149,7 +150,7 @@ function getApiKey() {
 // download button handler
 function download () {
     let buffer = doc.toByteArray()
-    saveByteArray("node.3dm", buffer)
+    saveByteArray("vassel.3dm", buffer)
 }
 
 function saveByteArray ( fileName, byte ) {
