@@ -123,8 +123,8 @@ function collectResults(values) {
     const wireframe = new THREE.LineSegments(geo, wireframeMat)
     child.add(wireframe)
 
-  }
-}
+     }
+    }
        
        
         scene.add( object )
