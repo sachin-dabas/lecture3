@@ -112,6 +112,21 @@ function collectResults(values) {
     const buffer = new Uint8Array(doc.toByteArray()).buffer
     loader.parse( buffer, function ( object ) 
     {
+
+    //const meshMat = new THREE.MeshBasicMaterial( { vertexColors: true })
+    const wireframeMat = new THREE.LineBasicMaterial( { color: 'black' } )
+    for (let i = 0; i < object.children.length; i++) {
+    const child = object.children[i];
+    if (child.isMesh) {
+    // child.material = meshMat
+    const geo = new THREE.WireframeGeometry(child.geometry)
+    const wireframe = new THREE.LineSegments(geo, wireframeMat)
+    child.add(wireframe)
+
+  }
+}
+       
+       
         scene.add( object )
         // hide spinner
         document.getElementById('loader').style.display = 'none'
